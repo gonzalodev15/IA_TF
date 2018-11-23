@@ -53,3 +53,14 @@ bcircinada_cpd = TabularCPD(
                 evidence = ['Lesiones blanco-grisaceas', 'Artritis', 'Uretritis', 'Conjuntivitis'],
                 evidence_card = [2, 2, 2, 2],
                 values = [[0.15,0.85]])
+				
+erupciones_cpd = TabularCPD(
+                    variable = 'Erupciones',
+                    variable_card = 2,
+                    evidence = 'Balanitis Candidiasica',
+                    evidence_card = [2, 2],
+                    values = [[0.1, 0.4],
+                             [0.9, 0.6]])
+							 
+model_infer = VariableElimination(balanitis_model)
+results = model_infer.query('Balanitis Candidiasica')								
