@@ -1,66 +1,22 @@
-from pgmpy.factors.discrete import TabularCPD
-from pgmpy.models import BayesianModel
+import numpy as np
 
-balanitis_model = BayesianModel([('Erupciones', 'Balanitis Candidiasica'),
-                                ('Dolor', 'Balanitis Candidiasica'),
-                                ('Picor', 'Balanitis Candidiasica'),
-                                ('Papulas', 'Balanitis Candidiasica'),
-                                ('Maculas', 'Balanitis Candidiasica'),
-                                ('Supuracion maloliente', 'Balanitis por Anaerobios'),
-                                ('Edemas', 'Balanitis por Anaerobios'),
-                                ('Adenitis', 'Balanitis por Anaerobios'),
-                                ('Enrojecimiento', 'Balanitis por Aerobios'),
-                                ('Fisuras', 'Balanitis por Aerobios'),
-                                ('Eritema', 'Balanitis por Aerobios'),
-                                ('Edemas', 'Balanitis por Aerobios'),
-                                ('Papulas', 'Balanitis por Herpes'),
-                                ('Ulceras Dolorosas', 'Balanitis por Herpes'),
-                                ('Inflamacion de Ganglios', 'Balanitis por Herpes'),
-                                ('Vesiculas', 'Balanitis por Herpes'),
-                                ('Lesiones blanco-grisaceas', 'Balanitis Circinada'),
-                                ('Artritis', 'Balanitis Circinada'),
-                                ('Uretritis', 'Balanitis Circinada'),
-                                ('Conjuntivitis', 'Balanitis Circinada')])
-								
+from bayespy.nodes import Categorical, Mixture
+from bayespy.inference import VB
 
-bcandidiasica_cpd = TabularCPD(
-                variable = 'Balanitis Candidiasica',
-                variable_card = 2,
-                evidence = ['Erupciones', 'Dolor', 'Picor', 'Papulas', 'Maculas'],
-                evidence_card = [2, 2, 2, 2, 2],
-                values = [[0.15,0.85]])
-banaerobios_cpd = TabularCPD(
-                variable = 'Balanitis por Anaerobios',
-                variable_card = 2,
-                evidence = ['Supuracion Maloliente', 'Edemas', 'Adenitis'],
-                evidence_card = [2, 2, 2],
-                values = [[0.25,0.75]])
-baerobios_cpd = TabularCPD(
-                variable = 'Balanitis por Aerobios',
-                variable_card = 2,
-                evidence = ['Enrojecimiento', 'Fisuras', 'Eritema', 'Edemas'],
-                evidence_card = [2, 2, 2, 2],
-                values = [[0.20,0.80]])
-bherpes_cpd = TabularCPD(
-                variable = 'Balanitis por Herpes',
-                variable_card = 2,
-                evidence = ['Papulas', 'Ulceras Dolorosas', 'Inflamacion de Ganglios', 'Vesículas'],
-                evidence_card = [2, 2, 2, 2],
-                values = [[0.30,0.70]])
-bcircinada_cpd = TabularCPD(
-                variable = 'Balanitis Circinada',
-                variable_card = 2,
-                evidence = ['Lesiones blanco-grisaceas', 'Artritis', 'Uretritis', 'Conjuntivitis'],
-                evidence_card = [2, 2, 2, 2],
-                values = [[0.15,0.85]])
-				
-erupciones_cpd = TabularCPD(
-                    variable = 'Erupciones',
-                    variable_card = 2,
-                    evidence = 'Balanitis Candidiasica',
-                    evidence_card = [2, 2],
-                    values = [[0.1, 0.4],
-                             [0.9, 0.6]])
-							 
-model_infer = VariableElimination(balanitis_model)
-results = model_infer.query('Balanitis Candidiasica')								
+FALSE = 0
+TRUE = 1
+
+def _or(p_false, p_true):
+    return np.take([p_false, p_true], [[FALSE, TRUE], [TRUE, TRUE]], axis=0)
+
+BCandidiasica = Categorical([0.85, 0.15])
+BAnaerobios = Categorical([0.75, 0.25])
+BAerobios = Categorical([0.80,0.20])
+BHerpes = Categorical([0.7,0.3])
+BCircinada = Categorical([0.15,0.85])
+
+Erupciones = Mixture(BCandidiasica, Categorical,[[0.6,0.4],[0.9,0.1]])
+Dolor = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.7,0.3]])
+Picor = Mixture(BCandidiasica, Categorical,[[0.55,0.45],[0.6,0.4]])
+Papulas  = Mixture(BCandidiasica, Categorical, BHerpes, Categorical,[0.6,0.4],[0.75,0.25])
+Macula =  Mixture(BCandidiasica, Categorical,[[0.7,0.3],[0.8,0.2]])
