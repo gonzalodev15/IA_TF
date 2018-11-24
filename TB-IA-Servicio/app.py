@@ -1,20 +1,20 @@
 from flask import Flask, jsonify, request, Response, json
-from Logica_Proposicional import LogicaProposicional as LP
+from TF import Bayes
 
 app = Flask(__name__)
 
+@app.route('/', methods=['GET'])
+def hello():
+    return "active"
+
 @app.route('/logic', methods=['POST'])
-def hello_world():
+def redBayesiana():
     if request.method == 'POST':
         body = request.get_json(force=True)
         print(body)
-        juegos = body["lista_juegos"]
-        dinero = body["dinero"]
-        procesador = body["procesador"]
-        tarjeta_video = body["tarjeta_video"]
-        ram = body["ram"]
+        sintomas = body["sintomas"]
         data = {
-            'respuesta' : LP(juegos, dinero, procesador, tarjeta_video, ram)
+            'respuesta' : Bayes(sintomas)
         }
         js = json.dumps(data)
         res = Response(js, status=200, mimetype='application/json')

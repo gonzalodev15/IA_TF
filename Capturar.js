@@ -2,13 +2,9 @@ $(document).ready(()=>{
     $('#Enviar').click(async ()=>{
     	var lis = [...document.getElementById("div2").getElementsByTagName("li")];
    		
-		
+		console.log(lis.map((ele, i) => ele.id));
 		let data = {
-			lista_juegos: lis.map((ele, i) => ele.value),
-			dinero: auxDinero,
-			procesador: auxProcesador,
-			tarjeta_video: auxTarjeta,
-			ram: auxRam
+			sintomas: lis.map((ele, i) => ele.id)
 		};
 
 		console.log(data);
@@ -23,8 +19,8 @@ $(document).ready(()=>{
 			}
 		});
 
-		//console.log(await res.json());
-		document.getElementById("respuestas").innerHTML = await printResponses(await res.json())
+		console.log(await res.json());
+		//document.getElementById("respuestas").innerHTML = await printResponses(await res.json())
     });
 });
 
