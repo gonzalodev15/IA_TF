@@ -10,7 +10,6 @@ def _or(p_false, p_true):
     return np.take([p_false, p_true], [[FALSE, TRUE], [TRUE, TRUE]], axis=0)
 
 def Bayes(Enfermedades):
-    print(Enfermedades)
     BCandidiasica = Categorical([0.85, 0.15])
     BAnaerobios = Categorical([0.75, 0.25])
     BAerobios = Categorical([0.80,0.20])
@@ -22,7 +21,7 @@ def Bayes(Enfermedades):
     Erupciones = Mixture(BCandidiasica, Categorical,[[0.6,0.4],[0.1,0.9]])
     Dolor = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.5,0.5]])
     Picor = Mixture(BCandidiasica, Categorical,[[0.55,0.45],[0.6,0.4]])
-    Papulas = Mixture(BCandidiasica, Categorical,[0.75,0.25])
+    Papulas  = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.4,0.6]])
     Macula =  Mixture(BCandidiasica, Categorical,[[0.7,0.3],[0.45,0.55]])
     
     """Balanitis Anaerobios"""
@@ -39,7 +38,7 @@ def Bayes(Enfermedades):
     """Balanitis Herpes"""
     Vesiculas = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.59,0.41]])
     UlDolorosas = Mixture(BHerpes, Categorical,[[0.85,0.15],[0.8,0.2]])
-    CPapulas = Mixture(BHerpes, Categorical,[0.6,0.4])
+    CPapulas = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.75,0.25]])
     InGangleos = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.65,0.35]])
     
     """Balanitis Circinada"""
@@ -107,8 +106,16 @@ def Bayes(Enfermedades):
     Q = VB(Conjuntivitis, Uretritis, Artritis, LesBlancas, InGangleos, UlDolorosas, Vesiculas, Eridmea, Fisuras, Enrojecimiento, Abdenitis, SurpuMaloliente,
       Macula,Picor,Dolor,Erupciones,BCircinada,BHerpes, BCandidiasica, BAnaerobios, BAerobios)
     Q.update(repeat=100)
-    aux = f"Balanitis Candidiasica: {BCandidiasica.get_moments()[0][TRUE]}\nBalanitis Anaerobios: {BAnaerobios.get_moments()[0][TRUE]}\nBalanitis Aerobios: {BAerobios.get_moments()[0][TRUE]}\nBalanitis Herpes: {BHerpes.get_moments()[0][TRUE]}\nBalanitis Circinada:{BCircinada.get_moments()[0][TRUE]}"
+    
+    aux = [
+        f"Balanitis Candidiasica: {BCandidiasica.get_moments()[0][TRUE]}",
+        f"Balanitis Anaerobios: {BAnaerobios.get_moments()[0][TRUE]}",
+        f"Balanitis Aerobios: {BAerobios.get_moments()[0][TRUE]}",
+        f"Balanitis Herpes: {BHerpes.get_moments()[0][TRUE]}",
+        f"Balanitis Circinada:{BCircinada.get_moments()[0][TRUE]}"
+    ]
+    
     return aux
     
-Juego = Bayes(['Dolor','Picor','Macula','Erupciones'])
-print(Juego)
+#Juego = Bayes(['Dolor','Picor','Macula','Erupciones'])
+#print(Juego)

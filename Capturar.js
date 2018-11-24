@@ -19,16 +19,16 @@ $(document).ready(()=>{
 			}
 		});
 
-		console.log(await res.json());
-		//document.getElementById("respuestas").innerHTML = await printResponses(await res.json())
+		result = await res.json();
+		document.getElementById("respuestas").innerHTML = printResponses(result);
     });
 });
 
-async function printResponses(obj) {
+function printResponses(obj) {
 	let array = obj.respuesta;
 	let component = "<ul class='list-group'>";
 	array.forEach((element, index) => {
-		component += `<li class="list-group-item">Opcion ${index}: ${element}</li>`;
+		component += `<li class="list-group-item">${element}</li>`;
 	});
 	component += "</ul>";
 	return component;
