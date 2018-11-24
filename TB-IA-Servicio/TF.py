@@ -18,25 +18,27 @@ def Bayes(Enfermedades):
     
     """Balanitis Candidiasica"""
     
-    Erupciones = Mixture(BCandidiasica, Categorical,[[0.6,0.4],[0.9,0.1]])
-    Dolor = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.7,0.3]])
+    Erupciones = Mixture(BCandidiasica, Categorical,[[0.6,0.4],[0.1,0.9]])
+    Dolor = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.5,0.5]])
     Picor = Mixture(BCandidiasica, Categorical,[[0.55,0.45],[0.6,0.4]])
-    """Papulas  = Mixture(BCandidiasica, Categorical, BHerpes, Categorical,[0.6,0.4],[0.75,0.25])"""
-    Macula =  Mixture(BCandidiasica, Categorical,[[0.7,0.3],[0.8,0.2]])
+    Papulas  = Mixture(BCandidiasica, Categorical,[0.75,0.25])
+    Macula =  Mixture(BCandidiasica, Categorical,[[0.7,0.3],[0.45,0.55]])
     
     """Balanitis Anaerobios"""
-    SurpuMaloliente = Mixture(BAnaerobios, Categorical,[[0.85,0.15],[0.95,0.05]])
-    """Edemas = Mixture(BAnaerobios, Categorical,[[0.85,0.15],[0.95,0.05]])"""
-    Abdenitis = Mixture(BAnaerobios, Categorical,[[0.65,0.35],[0.72,0.28]])
+    SurpuMaloliente = Mixture(BAnaerobios, Categorical,[[0.85,0.15],[0.55,0.45]])
+    Edemas = Mixture(BAnaerobios, Categorical,[[0.85,0.15],[0.5,0.5]])
+    Abdenitis = Mixture(BAnaerobios, Categorical,[[0.65,0.35],[0.60,0.40]])
     
     """Balanitis Aerobios"""
     Enrojecimiento = Mixture(BAerobios, Categorical,[[0.65,0.35],[0.6,0.4]])
     Fisuras = Mixture(BAerobios, Categorical,[[0.8,0.2],[0.4,0.6]])
+    CEdemas = Mixture(BAerobios, Categorical,[[0.85,0.15],[0.65,0.35]])
     Eridmea = Mixture(BAerobios, Categorical,[[0.55,0.45],[0.7,0.3]])
     
     """Balanitis Herpes"""
     Vesiculas = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.59,0.41]])
     UlDolorosas = Mixture(BHerpes, Categorical,[[0.85,0.15],[0.8,0.2]])
+    CPapulas = Mixture(BHerpes, Categorical,[0.6,0.4])
     InGangleos = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.65,0.35]])
     
     """Balanitis Circinada"""
@@ -93,6 +95,14 @@ def Bayes(Enfermedades):
             continue
         if x == "Conjuntivitis":
             Conjuntivitis.observe(TRUE)
+            continue
+        if x == "Papulas":
+            Papulas.observe(TRUE)
+            CPapulas.observe(TRUE)
+            continue
+        if x == "Edemas"
+            Edemas.observe(TRUE)
+            CEdemas.observe(TRUE)
             continue
     Q = VB(Conjuntivitis, Uretritis, Artritis, LesBlancas, InGangleos, UlDolorosas, Vesiculas, Eridmea, Fisuras, Enrojecimiento, Abdenitis, SurpuMaloliente,
       Macula,Picor,Dolor,Erupciones,BCircinada,BHerpes, BCandidiasica, BAnaerobios, BAerobios)
