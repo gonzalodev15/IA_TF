@@ -60,7 +60,7 @@ def Bayes(Enfermedades):
         if x == "Macula":
             Macula.observe(TRUE)
             continue
-        if x == "SurpuMaloliente":
+        if x == "Supuracion maloliente":
             SurpuMaloliente.observe(TRUE)
             continue
         if x == "Abdenitis":
@@ -75,20 +75,17 @@ def Bayes(Enfermedades):
         if x == "Vesiculas":
             Vesiculas.observe(TRUE)
             continue
-        if x == "UlDolorosas":
+        if x == "Ulceras dolorosas":
             UlDolorosas.observe(TRUE)
             continue
-        if x == "InGangleos":
+        if x == "Inflamacion de los gangleos":
             InGangleos.observe(TRUE)
             continue
-        if x == "LesBlancas":
+        if x == "Lesiones blanco-grisaseas":
             LesBlancas.observe(TRUE)
             continue
         if x == "Artritis":
             Artritis.observe(TRUE)
-            continue
-        if x == "Erupciones":
-            Erupciones.observe(TRUE)
             continue
         if x == "Uretritis":
             Uretritis.observe(TRUE)
@@ -100,10 +97,12 @@ def Bayes(Enfermedades):
             Papulas.observe(TRUE)
             CPapulas.observe(TRUE)
             continue
-        if x == "Edemas"
+        if x == "Edemas":
             Edemas.observe(TRUE)
             CEdemas.observe(TRUE)
             continue
+        if x == "Enrojecimiento"
+            Enrojecimiento.observe(TRUE)
     Q = VB(Conjuntivitis, Uretritis, Artritis, LesBlancas, InGangleos, UlDolorosas, Vesiculas, Eridmea, Fisuras, Enrojecimiento, Abdenitis, SurpuMaloliente,
       Macula,Picor,Dolor,Erupciones,BCircinada,BHerpes, BCandidiasica, BAnaerobios, BAerobios)
     Q.update(repeat=100)
