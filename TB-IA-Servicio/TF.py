@@ -114,7 +114,6 @@ def Bayes(Enfermedades):
         f"Balanitis Herpes: {BHerpes.get_moments()[0][TRUE]}",
         f"Balanitis Circinada:{BCircinada.get_moments()[0][TRUE]}"
     ]
-    
     return aux
     
 #Juego = Bayes(['Dolor','Picor','Macula','Erupciones'])
