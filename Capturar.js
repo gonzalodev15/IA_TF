@@ -1,15 +1,7 @@
 $(document).ready(()=>{
     $('#Enviar').click(async ()=>{
     	var lis = [...document.getElementById("div2").getElementsByTagName("li")];
-   		var Dinero = document.getElementById("Dinero");
-   		var Procesador = document.getElementById("Procesador");
-   		var Tarjeta = document.getElementById("Tarjeta");
-   		var Ram = document.getElementById("Ram");
-
-    	var auxDinero = Dinero.options[Dinero.selectedIndex].value;
-    	var auxProcesador = Procesador.options[Procesador.selectedIndex].value;
-    	var auxTarjeta = Tarjeta.options[Tarjeta.selectedIndex].value;
-    	var auxRam = Ram.options[Ram.selectedIndex].value;
+   		
 		
 		let data = {
 			lista_juegos: lis.map((ele, i) => ele.value),
