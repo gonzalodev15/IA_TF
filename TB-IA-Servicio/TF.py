@@ -16,7 +16,7 @@ def Bayes(Enfermedades):
     BHerpes = Categorical([0.7,0.3])
     BCircinada = Categorical([0.85,0.15])
     
-      """Balanitis Candidiasica"""
+    """Balanitis Candidiasica"""
     
     Erupciones = Mixture(BCandidiasica, Categorical,[[0.6,0.4],[0.1,0.9]])
     Dolor = Mixture(BCandidiasica, Categorical,[[0.75,0.25],[0.5,0.5]])
@@ -37,7 +37,7 @@ def Bayes(Enfermedades):
     Fisuras = Mixture(BAerobios, Categorical,[[0.8,0.2],[0.4,0.6]])
     CEdemas = Mixture(BAerobios, Categorical,[[0.85,0.15],[0.65,0.35]])
     Eridmea = Mixture(BAerobios, Categorical,[[0.55,0.45],[0.7,0.3]])
-    BDolor = Mixture(BAerobios, Categorical,[[0.5,0.5],[0.33,0.66]])
+    BDolor = Mixture(BAerobios, Categorical,[[0.5,0.5],[0.34,0.66]])
     
     """Balanitis Herpes"""
     Vesiculas = Mixture(BHerpes, Categorical,[[0.6,0.4],[0.59,0.41]])
@@ -54,7 +54,7 @@ def Bayes(Enfermedades):
     Uretritis = Mixture(BCircinada, Categorical,[[0.55,0.45],[0.60,0.40]])
     Conjuntivitis = Mixture(BCircinada, Categorical,[[0.7,0.3],[0.75,0.25]])
     DEnrojecimiento = Mixture(BCircinada, Categorical,[[0.54,0.46],[0.13,0.87]])
-    DDolor = Mixture(BCircinada, Categorical,[[0.958,0.02],[0.01,0.99]])
+    DDolor = Mixture(BCircinada, Categorical,[[0.98,0.02],[0.01,0.99]])
 
     for x in Enfermedades:
         if x == "Erupciones":
@@ -131,7 +131,7 @@ def Bayes(Enfermedades):
         f"Balanitis Anaerobios: {BAnaerobios.get_moments()[0][TRUE]}",
         f"Balanitis Aerobios: {BAerobios.get_moments()[0][TRUE]}",
         f"Balanitis Herpes: {BHerpes.get_moments()[0][TRUE]}",
-        f"Balanitis Circinada:{BCircinada.get_moments()[0][TRUE]}"
+        f"Balanitis Circinada: {BCircinada.get_moments()[0][TRUE]}"
     ]
     return aux
     
